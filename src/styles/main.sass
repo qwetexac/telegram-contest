@@ -1,0 +1,118 @@
+body, html, #root
+	width : 100%
+	margin : 0
+	box-sizing: border-box
+	
+	
+#root
+	padding : 30px
+	display : flex
+	flex-wrap: wrap
+	transition: background-color .2s ease-in
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif
+	
+	svg
+		user-select: none
+		path
+			&:not(.no-animation)
+				transition: all .2s ease-in
+		path.invisible
+			opacity: 0
+		g.zoom
+			transition: all .2s ease-in
+			&::before
+				display : block
+				content : ''
+			
+		text
+			transition: fill-opacity .3s ease-in
+	
+	
+.group-text
+	font-size : 12px
+	fill: #999
+
+
+.chart
+	padding: 50px 0
+	width : 100%
+	&-toggler
+		display : flex
+		align-items : center
+		
+		&__item
+			padding : 5px 10px 5px 35px
+			border: 1px solid #ccc
+			border-radius: 20px
+			text-transform : capitalize
+			position : relative
+			margin-right : 15px
+			cursor : pointer
+			
+			$item: &
+			
+			&-checkbox
+				visibility : hidden
+				pointer-events: none
+				position : absolute
+				z-index : -1
+				& + #{$item}-label
+					color: inherit
+					span
+						color: black
+					&:before
+						display : block
+						content : ''
+						border: 2px solid currentColor
+						width : 20px
+						height : 20px
+						position : absolute
+						top : 50%
+						margin-top : -10px
+						left : 5px
+						border-radius: 50%
+						box-sizing: border-box
+						background-image: url('check.svg')
+						background-position-y : 1px
+				
+				&:checked + #{$item}-label
+					&:before
+						background-color: currentColor
+						
+						
+	.tooltip
+		transition: opacity .2s ease
+		&--hidden
+			opacity : 0
+		&__background
+			stroke-width: 1
+			stroke: #ccc
+			fill: white
+		&__date
+			font-size : 14px
+		&__item
+			&-value
+				font-size: 16px
+				font-weight : bold
+			&-name
+				font-size : 12px
+				
+
+.switch-mode-button
+	position : fixed
+	bottom : 0
+	left : 0
+	text-align : center
+	padding : 1rem
+	width : 100%
+	cursor : pointer
+	color: #66bdf7
+	
+.night-mode
+	background-color : #18222d
+	& &-color--invert
+		color: white !important
+		transition: inherit
+	& &__chart-mask
+		fill: #1f2a37 !important
+		transition: inherit
