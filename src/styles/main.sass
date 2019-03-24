@@ -30,12 +30,16 @@ body, html, #root
 	
 .group-text
 	font-size : 12px
-	fill: #999
+	fill: rgba(0, 29, 49, 0.5)
 
 
 .chart
 	padding: 50px 0
 	width : 100%
+	
+	&__grid-line
+		stroke: rgba(0, 29, 49, 0.15)
+	
 	&-toggler
 		display : flex
 		align-items : center
@@ -72,11 +76,11 @@ body, html, #root
 						left : 5px
 						border-radius: 50%
 						box-sizing: border-box
-						background-image: url('check.svg')
 						background-position-y : 1px
 				
 				&:checked + #{$item}-label
 					&:before
+						background-image: url('check.svg')
 						background-color: currentColor
 						
 						
@@ -99,9 +103,6 @@ body, html, #root
 				
 
 .switch-mode-button
-	position : fixed
-	bottom : 0
-	left : 0
 	text-align : center
 	padding : 1rem
 	width : 100%
@@ -110,9 +111,26 @@ body, html, #root
 	
 .night-mode
 	background-color : #18222d
+	
+	.group-text
+		fill: rgba(116, 138, 165, 0.37)
 	& &-color--invert
 		color: white !important
 		transition: inherit
 	& &__chart-mask
 		fill: #1f2a37 !important
 		transition: inherit
+		
+	.chart__grid-line
+		stroke: rgba(116, 138, 165, 0.37)
+		
+	.tooltip__background
+		fill: #18222d
+		stroke: darken(#18222d, 10)
+	.tooltip__date
+		fill: white
+	.tooltip__line
+		stroke: white !important
+		opacity: .3
+	.tooltip__circle
+		fill: #18222d

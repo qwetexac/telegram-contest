@@ -1,4 +1,3 @@
-const webpack = require('webpack')
 const path = require('path')
 const glob = require('glob')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -69,7 +68,7 @@ module.exports = {
 		hot                : true,
 		inline             : true,
 		open               : true,
-		contentBase        : path.join(__dirname, 'public'),
+		contentBase        : __dirname,
 		historyApiFallback : true,
 		port               : 8090
 	},
@@ -81,10 +80,6 @@ module.exports = {
 			{
 				test  : /\.svg$/,
 				loader : 'url-loader'
-			},
-			{
-				test   : /\.(jpe?g|png|gif)$/i,
-				loader : 'file-loader'
 			}
 		]
 		
@@ -92,45 +87,13 @@ module.exports = {
 	
 	optimization : {
 		minimize : ! isDevelopmentMode,
+		minimizer: [new UglifyJsPlugin()],
 	},
 	
 	plugins : [
-		
-		...(! isDevelopmentMode ? [
-			// new CleanWebpackPlugin(['public'], {
-			// 	verbose : true,
-			// 	dry     : false,
-			// 	exclude : ['fonts', 'icons', 'img', 'uploads']
-			// }),
-			
-			new UglifyJsPlugin({
-				uglifyOptions : {ecma : 8}
-			})
-		] : []),
-		
 		new ExtractTextPlugin({
 			filename : 'main.css',
 			disable  : isDevelopmentMode
-		}),
-		
-		new webpack.DefinePlugin({
-			__DEV__     : isDevelopmentMode,
-			__WEBPACK__ : true
-		}),
-		
-		new webpack.HotModuleReplacementPlugin(),
-		
-		new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-		
-		// new BundleAnalyzerPlugin({
-		// 	openAnalyzer : false,
-		// 	analyzerMode : isDevelopmentMode ? 'server' : 'static'
-		// }),
-		//
-		// new CircularDependencyPlugin({
-		// 	exclude     : /a\.js|node_modules/,
-		// 	failOnError : true,
-		// 	cwd         : process.cwd(),
-		// })
+		})
 	]
 }

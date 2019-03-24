@@ -111,16 +111,17 @@ class ChartTooltip extends Component {
 		)
 		
 		this.el.setAttributes({
-			transform: `translate(${elMaxCoordX}, 0)`
+			transform: `translate(${elMaxCoordX}, 10)`
 		})
 		
 		info.data.map(({ y, color }) => {
 			const circle = document.createElementNS(xlms, 'circle').setAttributes({
 				cx: canvasX - elMaxCoordX,
-				cy: y,
+				cy: y - 10,
 				r: 3,
 				stroke: color,
 				'stroke-width': 2,
+				class: 'tooltip__circle',
 				fill: 'white'
 			})
 			
@@ -131,9 +132,10 @@ class ChartTooltip extends Component {
 			x1: canvasX - elMaxCoordX,
 			y1: computedSize.height,
 			x2: canvasX - elMaxCoordX,
-			y2: this.props.height + 50,
+			y2: this.props.height + 40,
 			stroke: 'black',
 			opacity: .1,
+			class: 'tooltip__line',
 			'pointer-events': 'none'
 		})
 		

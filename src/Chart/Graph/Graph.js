@@ -49,32 +49,6 @@ class ChartGraph extends Component {
 		const { offset, zoom } = this.props
 		
 		this.offsetGroup.setAttribute('transform', `translate(${-(offset / zoom)}, 0)`)
-		this.setAnimateOffsetChange()
-	}
-	
-	setAnimateOffsetChange () {
-		const { animationOffsetStart } = this.state
-		const { offsetTop, height } = this.props
-		
-		this.zoomGroup.setAttributes({
-			transform: `matrix(1, 0, 0, 0.5, 0, ${offsetTop + (height * 0.5)})`
-		})
-		
-		if (!animationOffsetStart) {
-			this.setState({ animationOffsetStart: true })
-			
-			if (hasTouch) {
-				document.addEventListener('touchend', this.resetAnimateOffsetChange.bind(this), { once: true, passive: true })
-			} else {
-				document.addEventListener('mouseup', this.resetAnimateOffsetChange.bind(this), { once: true })
-			}
-		}
-	}
-	
-	resetAnimateOffsetChange () {
-		this.removeLineAnimation()
-		this.setState({ animationOffsetStart: false })
-		this.zoomGroup.setAttributes({ transform: `matrix(1, 0, 0, 1, 0, ${this.props.offsetTop})` })
 	}
 	
 	handleZoomChanged () {

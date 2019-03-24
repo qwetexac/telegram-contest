@@ -6,7 +6,7 @@ const xlms = 'http://www.w3.org/2000/svg'
 class YRange extends Component {
 	update (prev) {
 		const { maxValue } = this.props
-		if (prev.maxValue === maxValue) {
+		if (prev.maxValue === maxValue || !isFinite(maxValue)) {
 			return
 		}
 		
@@ -37,13 +37,14 @@ class YRange extends Component {
 				x2: width,
 				y1: axisYCord,
 				y2: axisYCord,
-				stroke: '#ccc'
+				class: 'chart__grid-line',
 			})
 			
 			xAxisLabel.setAttributes({
 				html: Math.round(averageValue * count, 1),
 				x: 0,
-				y: axisYCord - 5
+				y: axisYCord - 5,
+				class: 'chart__grid-label',
 			})
 			
 			this.yAxisValues.push(xAxisLabel)
